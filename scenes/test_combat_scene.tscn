@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw28v3pu7rp28"]
+
+[ext_resource type="Script" uid="uid://bqogf1rn4mwsg" path="res://scenes/card_manager.gd" id="1_rvrkw"]
+[ext_resource type="Script" uid="uid://sa8galc2f5hd" path="res://scenes/PlayerHand.gd" id="3_0wsiq"]
+[ext_resource type="PackedScene" uid="uid://djbnt11asl8tk" path="res://scenes/CardSlot.tscn" id="3_yql2u"]
+[ext_resource type="Texture2D" uid="uid://bhf0snh858kk1" path="res://assets/Deck.png" id="4_0wsiq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tot2v"]
+size = Vector2(180, 266)
+
+[node name="TestCombatScene" type="Node2D"]
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("1_rvrkw")
+
+[node name="CardSlot" parent="." instance=ExtResource("3_yql2u")]
+position = Vector2(288, 363)
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("3_0wsiq")
+
+[node name="Deck" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+texture = ExtResource("4_0wsiq")
+
+[node name="Area2D" type="Area2D" parent="Deck"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deck/Area2D"]
+shape = SubResource("RectangleShape2D_tot2v")
