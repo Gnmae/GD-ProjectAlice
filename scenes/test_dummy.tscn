@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dccda0tjgh6bh"]
+
+[ext_resource type="Script" uid="uid://dmujybfxydyh7" path="res://scripts/test_dummy.gd" id="1_gionw"]
+[ext_resource type="PackedScene" uid="uid://djbnt11asl8tk" path="res://scenes/CardSlot.tscn" id="1_p43bn"]
+[ext_resource type="Texture2D" uid="uid://1gilr4486825" path="res://assets/EnemyPlaceHolder.png" id="2_amttc"]
+
+[node name="test_dummy" type="Node2D" groups=["Enemy"]]
+script = ExtResource("1_gionw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_amttc")
+
+[node name="CardSlot" parent="." instance=ExtResource("1_p43bn")]
+
+[node name="Health" type="RichTextLabel" parent="."]
+offset_left = -75.0
+offset_top = 65.0
+offset_right = -35.0
+offset_bottom = 105.0
+scale = Vector2(2, 2)
+text = "0"

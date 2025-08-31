@@ -2,9 +2,12 @@ extends Node2D
 #connects signals to card manager
 
 signal hovered
-signal hovered_off
+signal hovered_off	
 
 var hand_position
+var value
+var cost
+var card_name : String
 
 func _ready() -> void:
 	# connect card signals in parent(card manager). 

@@ -18,18 +18,20 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+MouseBrain="*res://MouseBrain.gd"
 
 [dialogic]
 
 directories/dch_directory={
+"test_character_bob": "res://DialogicStyles/DialogicCharacters/test_character_bob.dch",
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
 "test_timeline": "res://Timelines/test_timeline.dtl"
 }
 glossary/default_case_sensitive=true
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://DialogicStyles/Test_Style.tres", "res://DialogicStyles/DialogicCharacters/Test_Style_2.tres"]
+layout/default_style="res://DialogicStyles/Test_Style.tres"
 variables={
 "NewFolder": {
 "foldervar": ""
@@ -45,12 +47,17 @@ choices/reveal_by_input=false
 save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 text/autopauses={}
-layout/style_directory={}
+layout/style_directory={
+"": "res://DialogicStyles/Test_Style.tres",
+"Test_Style": "res://DialogicStyles/Test_Style.tres",
+"Test_Style_2": "res://DialogicStyles/DialogicCharacters/Test_Style_2.tres"
+}
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
@@ -63,6 +70,10 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
+[global_group]
+
+Enemy=""
+
 [input]
 
 dialogic_default_action={
@@ -72,5 +83,10 @@ dialogic_default_action={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+lmb={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(248, 19),"global_position":Vector2(257, 67),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }

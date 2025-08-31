@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dudtsrt243ch5"]
 
-[ext_resource type="Script" uid="uid://dan6laft8wo24" path="res://scenes/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://dan6laft8wo24" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://c7xqklr2sipmc" path="res://assets/bgalice1.png" id="1_l6cm7"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ekxnf"]
 texture = ExtResource("1_l6cm7")
-modulate_color = Color(0.912289, 0.912289, 0.912289, 1)
+modulate_color = Color(0.589096, 0.589096, 0.589095, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
 bg_color = Color(0.356863, 0.372549, 0.372549, 1)
