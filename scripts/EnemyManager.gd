@@ -4,6 +4,8 @@ var enemy_actions = []
 var card_database_reference
 var player_reference
 
+var attack_symbol_scene := preload("res://scenes/AttackSymbol.tscn")
+
 func _ready() -> void:
 	card_database_reference = preload("res://scripts/CardDatabase.gd")
 	player_reference = $"../Player"
@@ -14,12 +16,18 @@ func decide_enemy_actions():
 		#choose actions randomly from array
 		var index := randi_range(0, i.actions.size()-1)
 		enemy_actions.append(i.actions[index])
+		#action symbols
+		update_symbols(i, i.actions[index])
 
 func perform_enemy_actions():
 	for i in enemy_actions:
 		player_reference.take_damage(card_database_reference.CARDS.get(i)[0])
+	enemy_actions.clear()
 	self.decide_enemy_actions()
 
+func update_symbols(enemy_reference, action):
+	enemy_reference.get_node("AttackSymbol").visible = true
+	enemy_reference.get_node("AttackSymbol/Label").text = str(card_database_reference.CARDS.get(action)[0])
 
 func _on_turn_manager_turn_end() -> void:
 	self.perform_enemy_actions()

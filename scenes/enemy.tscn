@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxk8arqjm8s4g"]
 
-[ext_resource type="Script" uid="uid://djblsk20kui8y" path="res://Enemy.gd" id="1_4ra3w"]
+[ext_resource type="Script" uid="uid://djblsk20kui8y" path="res://scripts/Enemy.gd" id="1_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://1gilr4486825" path="res://assets/EnemyPlaceHolder.png" id="1_md0e3"]
 [ext_resource type="PackedScene" uid="uid://djbnt11asl8tk" path="res://scenes/CardSlot.tscn" id="2_4ra3w"]
 

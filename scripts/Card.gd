@@ -1,21 +1,80 @@
+class_name Card
 extends Node2D
 #connects signals to card manager
 
+const SIZE := Vector2(184, 300)
+
 signal hovered
 signal hovered_off	
+
+var mouse_in: bool = false
+var is_dragging: bool = false
+
+var current_goal_scale: Vector2 = Vector2(0.4, 0.4)
+var scale_tween: Tween
+
+var last_pos: Vector2
+var max_card_rotation: float = 12.5
 
 var hand_position
 var value
 var cost
 var card_name : String
 
-func _ready() -> void:
-	# connect card signals in parent(card manager). 
-	# if card is not child of card manager big error
-	get_parent().connect_card_signals(self)
+func _physics_process(delta: float) -> void:
+	drag_logic(delta)
+
+func drag_logic(delta: float) -> void:
+	$CardImage/shadow.position = Vector2(12, 12).rotated($CardImage.rotation)
+	$CardImage/shadow.modulate.a = 0.5
+	if (mouse_in or is_dragging) and (MouseBrain.node_being_dragged == null or MouseBrain.node_being_dragged == self):
+		if Input.is_action_pressed("lmb"):
+			get_node("/root/TestCombatScene/CardManager").start_drag(self)
+			global_position = lerp(global_position, get_global_mouse_position(), 22.0*delta) # - (SIZE/2.0)
+			_change_scale(Vector2(0.5, 0.5))
+			_set_rotation(delta)
+			$CardImage.z_index = 3
+			is_dragging = true
+			MouseBrain.node_being_dragged = self
+		else:
+			_change_scale(Vector2(0.45, 0.45))
+			$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
+			is_dragging = false
+			if MouseBrain.node_being_dragged == self:
+				MouseBrain.node_being_dragged = null
+			
+		return 
+	
+	$CardImage.z_index = 0
+	_change_scale(Vector2(0.4, 0.4))
+	$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
+	$CardImage/shadow.modulate.a = 0.0
+
+func connect_signals() -> void:	
+	get_node("/root/TestCombatScene/CardManager").connect_card_signals(self)
 
 func _on_area_2d_mouse_entered() -> void:
+	mouse_in = true
 	emit_signal("hovered", self)
 
 func _on_area_2d_mouse_exited() -> void:
+	mouse_in = false
 	emit_signal("hovered_off", self)
+
+
+func _change_scale(desired_scale: Vector2):
+	if desired_scale == current_goal_scale:
+		return
+	
+	if scale_tween:
+		scale_tween.kill()
+	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	scale_tween.tween_property($CardImage, "scale", desired_scale, 0.125) #0.125
+	
+	current_goal_scale = desired_scale
+
+func _set_rotation(delta: float) -> void:
+	var desired_rotation: float = clamp((global_position - last_pos).x*0.85, -max_card_rotation, max_card_rotation)
+	$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, desired_rotation, 12.0*delta)
+	
+	last_pos = global_position

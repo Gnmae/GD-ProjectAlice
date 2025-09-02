@@ -8,7 +8,7 @@ z_index = 4096
 script = ExtResource("1_ouscy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_5v7j2")
 offset = Vector2(125, 200)
 

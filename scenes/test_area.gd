@@ -1,0 +1,11 @@
+extends Area2D
+
+
+
+
+func _on_mouse_entered() -> void:
+	print("mouse entered")
+
+
+func _on_mouse_exited() -> void:
+	pass # Replace with function body.

@@ -4,12 +4,17 @@ const COLLISION_MASK_CARD : int = 1
 const COLLISION_MASK_CARD_SLOT : int = 2
 const DEFAULT_CARD_MOVE_SPEED := 0.1
 
+const default_scale := Vector2(0.2, 0.2)
+
+
 var screen_size
 var card_being_dragged
 var is_hovering_on_card
 var player_hand_reference
 var discard_pile_reference
 var energy_reference
+
+var i: int = 0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -19,17 +24,16 @@ func _ready() -> void:
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 func _process(delta: float) -> void:
-	if card_being_dragged:
-		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
-		clamp(mouse_pos.y, 0, screen_size.y))
+	pass
+	#if card_being_dragged:
+		#var mouse_pos = get_global_mouse_position()
+		#card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		#clamp(mouse_pos.y, 0, screen_size.y))
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
 	
 	var card_slot_found = raycast_check_for_card_slot()
 	if card_slot_found and not card_slot_found.card_in_slot and card_being_dragged.cost <= energy_reference.get_energy():
@@ -39,9 +43,11 @@ func finish_drag():
 		card_slot_found.play_card(card_being_dragged)
 		discard_pile_reference.add_to_pile(card_being_dragged.card_name)
 		energy_reference.decr_energy(card_being_dragged.cost)
+		
+		
 		card_being_dragged.queue_free()
 	else:
-		highlight_card(card_being_dragged, false)
+		#highlight_card(card_being_dragged, false)
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	
 	card_being_dragged = null
@@ -74,10 +80,8 @@ func on_hovered_off_card(card):
 
 func highlight_card(card, hovered):
 	if hovered:
-		card.scale = Vector2(1.05, 1.05)
 		card.z_index = 2
 	else:
-		card.scale = Vector2(1, 1)
 		card.z_index = 1
 
 func raycast_check_for_card_slot():

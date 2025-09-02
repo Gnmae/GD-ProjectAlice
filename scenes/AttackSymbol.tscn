@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://4xwhsuw7fglj"]
+
+[ext_resource type="Texture2D" uid="uid://b4gl6ypp421fo" path="res://assets/AttackSymbol.png" id="1_2bvb5"]
+
+[node name="AttackSymbol" type="Sprite2D"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_2bvb5")
+
+[node name="Label" type="RichTextLabel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -500.0
+offset_right = 50.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 500
+bbcode_enabled = true
+text = "0"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

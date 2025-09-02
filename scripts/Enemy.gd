@@ -2,6 +2,7 @@ extends Node2D
 class_name Enemy
 
 var health
+var has_symbol : bool = false
 
 func _ready() -> void:
 	health = 2

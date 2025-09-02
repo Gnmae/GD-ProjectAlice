@@ -23,3 +23,4 @@ func decr_energy(value:int):
 
 func _on_turn_manager_turn_end() -> void:
 	energy_amt = max_energy
+	$EnergyText.text = str(energy_amt)
