@@ -9,17 +9,20 @@
 script = ExtResource("1_gionw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_amttc")
 
 [node name="CardSlot" parent="." instance=ExtResource("1_p43bn")]
 
 [node name="Health" type="RichTextLabel" parent="."]
-offset_left = -75.0
-offset_top = 65.0
-offset_right = -35.0
-offset_bottom = 105.0
-scale = Vector2(2, 2)
+offset_left = -129.0
+offset_top = 106.0
+offset_right = -7.0
+offset_bottom = 213.0
+theme_override_font_sizes/normal_font_size = 70
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AttackSymbol" parent="." instance=ExtResource("4_0btni")]
-position = Vector2(0, -175)
+position = Vector2(0, -275)

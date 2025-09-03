@@ -8,12 +8,12 @@ z_index = 4096
 script = ExtResource("1_ouscy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_5v7j2")
-offset = Vector2(125, 200)
+offset = Vector2(150, 180)
 
 [node name="shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0)
 show_behind_parent = true
+texture_filter = 6
 texture = ExtResource("1_5v7j2")
-offset = Vector2(125, 200)
+offset = Vector2(150, 180)

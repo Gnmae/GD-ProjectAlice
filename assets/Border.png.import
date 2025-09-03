@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsi8v60v1utlg"
-path="res://.godot/imported/mouse.png-86a36c525f5fbb80016971cea1008f71.ctex"
+uid="uid://dqpvilf1bhr5c"
+path="res://.godot/imported/Border.png-a0ecbdcbee6bb79bfc6b743098f73667.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mouse.png"
-dest_files=["res://.godot/imported/mouse.png-86a36c525f5fbb80016971cea1008f71.ctex"]
+source_file="res://assets/Border.png"
+dest_files=["res://.godot/imported/Border.png-a0ecbdcbee6bb79bfc6b743098f73667.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

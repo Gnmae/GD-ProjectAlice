@@ -9,8 +9,9 @@ func _ready() -> void:
 	$Health.text = str(health)
 
 
-func take_damage(value : int):
-	if value >= health:
+func apply_effect(cardstats : CardStats):
+	health += cardstats.health
+	health -= cardstats.damage
+	if health <= 0:
 		print("player health no good")
-	health -= value
 	$Health.text = str(health)

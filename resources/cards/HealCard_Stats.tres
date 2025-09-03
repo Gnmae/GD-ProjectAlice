@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=2 format=3 uid="uid://1glklj63n1l6"]
+
+[ext_resource type="Script" uid="uid://b1ieak8remhb6" path="res://resources/Card_Stats.gd" id="1_q5ewb"]
+
+[resource]
+script = ExtResource("1_q5ewb")
+targeting = "Friendly"
+cost = 1
+damage = 0
+health = 1
+shield = 0
+metadata/_custom_type_script = "uid://b1ieak8remhb6"

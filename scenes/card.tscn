@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq4rj33tnr4s3"]
+[gd_scene load_steps=5 format=3 uid="uid://dq4rj33tnr4s3"]
 
 [ext_resource type="Script" uid="uid://dh4bymusdoj54" path="res://scripts/Card.gd" id="1_6u4wf"]
 [ext_resource type="Texture2D" uid="uid://cq2nhqpcb3gww" path="res://assets/AttackCard.png" id="1_d81rb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8xr3q"]
 size = Vector2(184, 300)
@@ -14,10 +22,22 @@ script = ExtResource("1_6u4wf")
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_d81rb")
 
+[node name="border" type="Panel" parent="CardImage"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -750.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6u4wf")
+
 [node name="shadow" type="Sprite2D" parent="CardImage"]
 modulate = Color(0, 0, 0, 0)
 show_behind_parent = true
-texture_filter = 6
 texture = ExtResource("1_d81rb")
 
 [node name="Attack" type="RichTextLabel" parent="CardImage"]

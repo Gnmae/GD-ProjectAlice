@@ -16,10 +16,12 @@ var scale_tween: Tween
 var last_pos: Vector2
 var max_card_rotation: float = 12.5
 
+@export var stats : CardStats
+
 var hand_position
-var value
 var cost
 var card_name : String
+var targeting
 
 func _physics_process(delta: float) -> void:
 	drag_logic(delta)

@@ -16,7 +16,7 @@ var deck_reference
 @export var max_rotation_degrees := 5
 @export var x_sep := -10
 @export var y_min := 0
-@export var y_max := -15
+@export var y_max := -30
 
 func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2
@@ -39,8 +39,11 @@ func add_card_to_hand(card, speed):
 
 func discard_card_from_hand(card):
 	discard_pile_reference.add_to_pile(card.card_name)
-	animate_card_to_position(card, discard_pile_reference.global_position, DEFAULT_CARD_MOVE_SPEED)
-	remove_card_from_hand(card)
+	player_hand.erase(card)
+	var root = get_tree().current_scene
+	card.reparent(root)
+	await animate_card_to_position(card, discard_pile_reference.global_position, 0.2)
+	card.queue_free()
 
 
 
@@ -94,7 +97,6 @@ func remove_card_from_hand(card):
 	if card in player_hand:
 		player_hand.erase(card)
 		self.remove_child(card)
-		print(str(card.position))
 		update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
 
 

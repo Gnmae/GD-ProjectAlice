@@ -36,22 +36,54 @@ func start_drag(card):
 func finish_drag():
 	
 	var card_slot_found = raycast_check_for_card_slot()
-	if card_slot_found and not card_slot_found.card_in_slot and card_being_dragged.cost <= energy_reference.get_energy():
-		player_hand_reference.remove_card_from_hand(card_being_dragged)
-		card_being_dragged.position = card_slot_found.global_position
-		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
-		card_slot_found.play_card(card_being_dragged)
-		discard_pile_reference.add_to_pile(card_being_dragged.card_name)
-		energy_reference.decr_energy(card_being_dragged.cost)
-		
-		
-		card_being_dragged.queue_free()
-	else:
-		#highlight_card(card_being_dragged, false)
-		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	
+	match card_being_dragged.targeting:
+			"Enemy":
+				if card_slot_found != null and card_slot_found.get_group() == "Enemy":
+					if card_being_dragged.cost <= energy_reference.get_energy():
+						player_hand_reference.remove_card_from_hand(card_being_dragged)
+						card_being_dragged.position = card_slot_found.global_position
+						card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+						card_slot_found.play_card(card_being_dragged)
+						discard_pile_reference.add_to_pile(card_being_dragged.card_name)
+						energy_reference.decr_energy(card_being_dragged.cost)
+						card_being_dragged.queue_free()
+					else:
+						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+				else:
+						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+			"Enemy_All":
+				if card_being_dragged.cost <= energy_reference.get_energy():
+					var enemies = get_tree().get_nodes_in_group("Enemy")
+					player_hand_reference.remove_card_from_hand(card_being_dragged)
+					for i in enemies:
+						i.get_node("CardSlot").play_card(card_being_dragged)
+					discard_pile_reference.add_to_pile(card_being_dragged.card_name)
+					energy_reference.decr_energy(card_being_dragged.cost)
+					card_being_dragged.queue_free()
+				else:
+						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+			"Friendly":
+				if card_slot_found != null and card_slot_found.get_group() == "Friendly":
+					if card_being_dragged.cost <= energy_reference.get_energy():
+						player_hand_reference.remove_card_from_hand(card_being_dragged)
+						card_being_dragged.position = card_slot_found.global_position
+						card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+						card_slot_found.play_card(card_being_dragged)
+						discard_pile_reference.add_to_pile(card_being_dragged.card_name)
+						energy_reference.decr_energy(card_being_dragged.cost)
+						card_being_dragged.queue_free()
+					else:
+						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+				else:
+						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+			"Friendly_All":
+				pass
+			"All":
+				pass
+			_:
+				pass
 	card_being_dragged = null
-
 
 func connect_card_signals(card):
 	card.connect("hovered", on_hovered_over_card)
