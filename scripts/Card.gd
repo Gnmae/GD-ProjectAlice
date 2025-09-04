@@ -31,15 +31,15 @@ func drag_logic(delta: float) -> void:
 	$CardImage/shadow.modulate.a = 0.5
 	if (mouse_in or is_dragging) and (MouseBrain.node_being_dragged == null or MouseBrain.node_being_dragged == self):
 		if Input.is_action_pressed("lmb"):
-			get_node("/root/TestCombatScene/CardManager").start_drag(self)
+			get_node("/root/Test_3D_Scene/Control/CardManager").start_drag(self)
 			global_position = lerp(global_position, get_global_mouse_position(), 22.0*delta) # - (SIZE/2.0)
-			_change_scale(Vector2(0.5, 0.5))
+			_change_scale(Vector2(0.45, 0.45))
 			_set_rotation(delta)
 			$CardImage.z_index = 3
 			is_dragging = true
 			MouseBrain.node_being_dragged = self
 		else:
-			_change_scale(Vector2(0.45, 0.45))
+			_change_scale(Vector2(0.43, 0.43))
 			$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
 			is_dragging = false
 			if MouseBrain.node_being_dragged == self:
@@ -53,7 +53,7 @@ func drag_logic(delta: float) -> void:
 	$CardImage/shadow.modulate.a = 0.0
 
 func connect_signals() -> void:	
-	get_node("/root/TestCombatScene/CardManager").connect_card_signals(self)
+	get_node("/root/Test_3D_Scene/Control/CardManager").connect_card_signals(self)
 
 func _on_area_2d_mouse_entered() -> void:
 	mouse_in = true

@@ -1,0 +1,165 @@
+[gd_scene load_steps=16 format=3 uid="uid://c51urya2pj1nm"]
+
+[ext_resource type="PackedScene" uid="uid://cwhfbot0mesiy" path="res://scenes/player.tscn" id="1_5k1rx"]
+[ext_resource type="PackedScene" uid="uid://dccda0tjgh6bh" path="res://scenes/test_dummy.tscn" id="2_swg6j"]
+[ext_resource type="Script" uid="uid://bqogf1rn4mwsg" path="res://scripts/CardManager.gd" id="3_3lpxr"]
+[ext_resource type="Script" uid="uid://sa8galc2f5hd" path="res://scripts/PlayerHand.gd" id="4_eoko0"]
+[ext_resource type="Script" uid="uid://dhf40xl8yoleq" path="res://scripts/Deck.gd" id="5_rgnn4"]
+[ext_resource type="Texture2D" uid="uid://bhf0snh858kk1" path="res://assets/Deck.png" id="6_jus0k"]
+[ext_resource type="Script" uid="uid://duljsncr5xd22" path="res://scripts/Energy.gd" id="7_cv26l"]
+[ext_resource type="Script" uid="uid://u6ufg6bw64ip" path="res://scripts/DiscardPile.gd" id="8_rp5pb"]
+[ext_resource type="Script" uid="uid://dfdr28w7bdfub" path="res://scripts/InputManager.gd" id="9_mioed"]
+[ext_resource type="Script" uid="uid://b867abe1g53mj" path="res://scripts/EnemyManager.gd" id="10_236cj"]
+[ext_resource type="Script" uid="uid://drrvayi838ypx" path="res://scripts/TurnManager.gd" id="11_ytbul"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_muyy3"]
+
+[sub_resource type="Curve" id="Curve_4h8li"]
+_data = [Vector2(0, 0), 0.0, 3.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_l8do3"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), -6.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w2ad"]
+size = Vector2(180, 266)
+
+[node name="Test_3D_Scene" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(34.5898, 0, 0, 0, 6.02366, 0, 0, 0, 23.7817, 0, -7.39209, 0)
+mesh = SubResource("PlaneMesh_muyy3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.822124, 0.569308, 0, -0.569308, 0.822124, 0.980748, -0.622104, 22.0755)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EndTurnButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1641.0
+offset_top = 536.0
+offset_right = 1899.0
+offset_bottom = 638.0
+theme_override_font_sizes/font_size = 40
+text = "End Turn
+"
+
+[node name="Player" parent="Control" groups=["Friendly"] instance=ExtResource("1_5k1rx")]
+position = Vector2(410, 502)
+
+[node name="test_dummy2" parent="Control" instance=ExtResource("2_swg6j")]
+position = Vector2(1215, 502)
+
+[node name="test_dummy3" parent="Control" instance=ExtResource("2_swg6j")]
+position = Vector2(1516, 502)
+
+[node name="CardManager" type="Node2D" parent="Control"]
+script = ExtResource("3_3lpxr")
+
+[node name="PlayerHand" type="Node2D" parent="Control"]
+position = Vector2(314, 890)
+script = ExtResource("4_eoko0")
+hand_curve = SubResource("Curve_4h8li")
+rotation_curve = SubResource("Curve_l8do3")
+
+[node name="Deck" type="Node2D" parent="Control"]
+position = Vector2(150, 890)
+script = ExtResource("5_rgnn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Deck"]
+texture = ExtResource("6_jus0k")
+
+[node name="Area2D" type="Area2D" parent="Control/Deck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Deck/Area2D"]
+shape = SubResource("RectangleShape2D_8w2ad")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Deck"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -35.5
+offset_right = 30.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Energy" type="Node2D" parent="Control"]
+position = Vector2(138, 694)
+script = ExtResource("7_cv26l")
+
+[node name="EnergyText" type="RichTextLabel" parent="Control/Energy"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+theme_override_font_sizes/normal_font_size = 50
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiscardPile" type="Node2D" parent="Control"]
+position = Vector2(1781, 890)
+script = ExtResource("8_rp5pb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Control/DiscardPile"]
+texture = ExtResource("6_jus0k")
+
+[node name="Area2D" type="Area2D" parent="Control/DiscardPile"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/DiscardPile/Area2D"]
+shape = SubResource("RectangleShape2D_8w2ad")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/DiscardPile"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -35.5
+offset_right = 30.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputManager" type="Node2D" parent="Control"]
+script = ExtResource("9_mioed")
+
+[node name="EnemyManager" type="Node2D" parent="Control"]
+script = ExtResource("10_236cj")
+
+[node name="TurnManager" type="Node2D" parent="Control"]
+script = ExtResource("11_ytbul")
+
+[connection signal="pressed" from="Control/EndTurnButton" to="Control/TurnManager" method="_on_end_turn_button_pressed"]
+[connection signal="turn_end" from="Control/TurnManager" to="Control/EnemyManager" method="_on_turn_manager_turn_end"]

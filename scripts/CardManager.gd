@@ -14,7 +14,6 @@ var player_hand_reference
 var discard_pile_reference
 var energy_reference
 
-var i: int = 0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -22,13 +21,6 @@ func _ready() -> void:
 	discard_pile_reference = $"../DiscardPile"
 	energy_reference = $"../Energy"
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
-
-func _process(delta: float) -> void:
-	pass
-	#if card_being_dragged:
-		#var mouse_pos = get_global_mouse_position()
-		#card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
-		#clamp(mouse_pos.y, 0, screen_size.y))
 
 func start_drag(card):
 	card_being_dragged = card

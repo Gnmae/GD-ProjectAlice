@@ -8,18 +8,17 @@
 script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.485, 0.485)
+scale = Vector2(0.415, 0.415)
 texture = ExtResource("1_3vyb7")
 
 [node name="Health" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
-offset_left = -129.0
-offset_top = 129.0
+offset_left = -105.0
+offset_top = 109.0
 offset_right = -16.0
-offset_bottom = 231.0
-theme_override_font_sizes/normal_font_size = 70
+offset_bottom = 182.0
+theme_override_font_sizes/normal_font_size = 50
 text = "0"
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CardSlot" parent="." instance=ExtResource("3_qhqgy")]
