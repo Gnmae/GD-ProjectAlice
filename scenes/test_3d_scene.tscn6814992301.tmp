@@ -67,7 +67,7 @@ position = Vector2(1215, 502)
 [node name="test_dummy3" parent="Control" instance=ExtResource("2_swg6j")]
 position = Vector2(1516, 502)
 
-[node name="CardManager" type="Node2D" parent="Control" groups=["CardManager"]]
+[node name="CardManager" type="Node2D" parent="Control"]
 script = ExtResource("3_3lpxr")
 
 [node name="PlayerHand" type="Node2D" parent="Control"]
@@ -173,5 +173,4 @@ sky_mode = 1
 [connection signal="pressed" from="Control/EndTurnButton" to="Control/TurnManager" method="_on_end_turn_button_pressed"]
 [connection signal="drag_finished" from="Control/CardManager" to="CameraManager" method="_on_card_manager_drag_finished"]
 [connection signal="drag_started" from="Control/CardManager" to="CameraManager" method="_on_card_manager_drag_started"]
-[connection signal="turn_end" from="Control/TurnManager" to="Control/Energy" method="_on_turn_manager_turn_end"]
 [connection signal="turn_end" from="Control/TurnManager" to="Control/EnemyManager" method="_on_turn_manager_turn_end"]

@@ -8,6 +8,7 @@ const COLLISION_MASK_DECK : int = 4
 
 var card_manager_reference
 var deck_reference
+var focused : bool = false
 
 func _ready() -> void:
 	card_manager_reference = $"../CardManager"
@@ -15,13 +16,16 @@ func _ready() -> void:
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
+		if event.pressed and focused:
+			focused = card_manager_reference.finish_drag()
+		elif event.pressed and !focused:
 			emit_signal("left_mouse_button_clicked")
 			raycast_at_cursor()
 		else:
 			emit_signal("left_mouse_button_released")
 
 func raycast_at_cursor():
+	print("racycasting at cursor")
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
@@ -34,8 +38,9 @@ func raycast_at_cursor():
 			# card clicked
 			var card_found = result[0].collider.get_parent()
 			if card_found:
-				pass
-				#card_manager_reference.start_drag(card_found)
+				card_found.drag_logic()
+				card_manager_reference.start_drag(card_found)
+				focused = true
 		elif result_collision_mask == COLLISION_MASK_DECK:
 			pass
 			# deck clicked

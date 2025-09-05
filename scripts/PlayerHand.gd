@@ -36,6 +36,8 @@ func add_card_to_hand(card, speed):
 		update_hand_positions(speed)
 	else:
 		animate_card_to_position(card, card.hand_position, DEFAULT_CARD_MOVE_SPEED)
+		update_hand_positions(speed)
+
 
 func discard_card_from_hand(card):
 	discard_pile_reference.add_to_pile(card.card_name)
@@ -60,6 +62,7 @@ func update_hand_positions(speed):
 	
 	for i in card_count:
 		var card = player_hand[i]
+		
 		var y_multiplier := hand_curve.sample(1.0 / (card_count - 1) * i)
 		var rot_multiplier := rotation_curve.sample(1.0 / (card_count - 1) * i)
 		

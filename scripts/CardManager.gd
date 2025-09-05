@@ -6,6 +6,8 @@ const DEFAULT_CARD_MOVE_SPEED := 0.1
 
 const default_scale := Vector2(0.2, 0.2)
 
+signal drag_started
+signal drag_finished
 
 var screen_size
 var card_being_dragged
@@ -20,12 +22,14 @@ func _ready() -> void:
 	player_hand_reference = $"../PlayerHand"
 	discard_pile_reference = $"../DiscardPile"
 	energy_reference = $"../Energy"
-	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
+	#$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 func start_drag(card):
 	card_being_dragged = card
 
 func finish_drag():
+	#if card_being_dragged == null:
+		#return false
 	
 	var card_slot_found = raycast_check_for_card_slot()
 	
@@ -41,9 +45,11 @@ func finish_drag():
 						energy_reference.decr_energy(card_being_dragged.cost)
 						card_being_dragged.queue_free()
 					else:
+						card_being_dragged._change_scale(Vector2(0.4, 0.4))
 						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 				else:
-						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+					card_being_dragged._change_scale(Vector2(0.4, 0.4))
+					player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 			"Enemy_All":
 				if card_being_dragged.cost <= energy_reference.get_energy():
 					var enemies = get_tree().get_nodes_in_group("Enemy")
@@ -54,7 +60,8 @@ func finish_drag():
 					energy_reference.decr_energy(card_being_dragged.cost)
 					card_being_dragged.queue_free()
 				else:
-						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+					card_being_dragged._change_scale(Vector2(0.4, 0.4))
+					player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 			"Friendly":
 				if card_slot_found != null and card_slot_found.get_group() == "Friendly":
 					if card_being_dragged.cost <= energy_reference.get_energy():
@@ -66,16 +73,21 @@ func finish_drag():
 						energy_reference.decr_energy(card_being_dragged.cost)
 						card_being_dragged.queue_free()
 					else:
+						card_being_dragged._change_scale(Vector2(0.4, 0.4))
 						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 				else:
-						player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+					card_being_dragged._change_scale(Vector2(0.4, 0.4))
+					player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 			"Friendly_All":
 				pass
 			"All":
 				pass
 			_:
 				pass
+	
+	
 	card_being_dragged = null
+	return false
 
 func connect_card_signals(card):
 	card.connect("hovered", on_hovered_over_card)
@@ -84,7 +96,6 @@ func connect_card_signals(card):
 func on_left_click_released():
 	if card_being_dragged:
 		finish_drag()
-
 
 func on_hovered_over_card(card):
 	if !is_hovering_on_card:
