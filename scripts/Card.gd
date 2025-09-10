@@ -8,7 +8,7 @@ signal hovered
 signal hovered_off
 
 var mouse_in: bool = false
-var is_dragging: bool = false
+var focused: bool = false
 
 var current_goal_scale: Vector2 = Vector2(0.4, 0.4)
 var scale_tween: Tween
@@ -24,47 +24,62 @@ var card_name : String
 var targeting
 
 var card_manager
+var input_manager
 
-#func _physics_process(delta: float) -> void:
-	#if is_dragging:
-		#drag_logic()
-	#else:
-		#hover_logic(delta)
+func _ready() -> void:
+	card_manager = get_tree().get_first_node_in_group("CardManager")
+	input_manager = get_tree().get_first_node_in_group("InputManager")
 
-func hover_logic(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if !card_manager.focused:
+		hover_logic(delta)
+		input_logic()
+
+func input_logic() -> void:
+	#$CardImage/shadow.position = Vector2(12, 12).rotated($CardImage.rotation)
+	#$CardImage/shadow.modulate.a = 0.5
+	if (mouse_in):
+		if Input.is_action_just_pressed("lmb"):
+			card_manager.on_card_pressed(self, "lmb")
+		elif Input.is_action_just_pressed("rmb"):
+			card_manager.on_card_pressed(self, "rmb")
+	
+	#$CardImage.z_index = 0
+	#change_scale(Vector2(0.4, 0.4))
+	#$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
+	#$CardImage/shadow.modulate.a = 0.0
+
+func hover_logic(delta: float):
 	$CardImage/shadow.position = Vector2(12, 12).rotated($CardImage.rotation)
 	$CardImage/shadow.modulate.a = 0.5
-	if (mouse_in or is_dragging) and (MouseBrain.node_being_dragged == null or MouseBrain.node_being_dragged == self):
-		if Input.is_action_just_pressed("lmb"):
-			#global_position = lerp(global_position, get_global_mouse_position(), 22.0*delta) # - (SIZE/2.0)
-			#_set_rotation(delta)
-			is_dragging = true
-			MouseBrain.node_being_dragged = self
-		else:
-			_change_scale(Vector2(0.43, 0.43))
-			#$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
-			is_dragging = false
-			if MouseBrain.node_being_dragged == self:
-				MouseBrain.node_being_dragged = null
+	if (mouse_in) and (MouseBrain.node_being_dragged == null or MouseBrain.node_being_dragged == self):
+		change_scale(Vector2(0.43, 0.43))
 			
 		return 
 	
-	$CardImage.z_index = 0
-	_change_scale(Vector2(0.4, 0.4))
+	change_scale(Vector2(0.4, 0.4))
 	#$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, 0.0, 22.0*delta)
 	$CardImage/shadow.modulate.a = 0.0
 
-func drag_logic():
+func start_focus():
 	$CardImage.z_index = 100
 	var focused_card_position = Vector2(1920, 1080) / 2.0
 	focused_card_position.x = focused_card_position.x * 1.5
 	global_position = focused_card_position
-	_change_scale(Vector2(1.0, 1.0))
-	$CardImage.global_rotation_degrees = 0.0
+	change_scale(Vector2(1.0, 1.0))
+	self.rotation_degrees = 0.0
+	$CardImage/shadow.modulate.a = 0.5
+	$CardImage/Text.visible = true
+
+func end_focus():
+	change_scale(Vector2(0.4, 0.4))
+	$CardImage/shadow.modulate.a = 0.0
+	$CardImage/Text.visible = false
 
 func connect_signals() -> void:
-	card_manager = get_tree().get_first_node_in_group("CardManager")
-	card_manager.connect_card_signals(self)
+	pass
+	#card_manager.connect_card_signals(self)
+	#input_manager.connect_card_signals(self)
 
 func _on_area_2d_mouse_entered() -> void:
 	mouse_in = true
@@ -74,7 +89,8 @@ func _on_area_2d_mouse_exited() -> void:
 	mouse_in = false
 	emit_signal("hovered_off", self)
 
-func _change_scale(desired_scale: Vector2):
+
+func change_scale(desired_scale: Vector2):
 	if desired_scale == current_goal_scale:
 		return
 	
@@ -86,9 +102,9 @@ func _change_scale(desired_scale: Vector2):
 	current_goal_scale = desired_scale
 
 func _set_rotation(delta: float) -> void:
-	var desired_rotation: float = clamp((global_position - last_pos).x*0.85, -max_card_rotation, max_card_rotation)
-	$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, desired_rotation, 12.0*delta)
-	
+	#var desired_rotation: float = clamp((global_position - last_pos).x*0.85, -max_card_rotation, max_card_rotation)
+	#$CardImage.rotation_degrees = lerp($CardImage.rotation_degrees, desired_rotation, 12.0*delta)
+	$CardImage.rotation_degrees = 0.0
 	last_pos = global_position
 
 func _start_focus():

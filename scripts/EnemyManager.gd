@@ -7,7 +7,7 @@ var player_reference
 
 func _ready() -> void:
 	
-	player_reference = $"../Player"
+	player_reference = get_tree().get_first_node_in_group("Friendly")
 
 func decide_enemy_actions():
 	var enemies = get_tree().get_nodes_in_group("Enemy")

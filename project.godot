@@ -75,6 +75,11 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 Enemy=""
 Friendly=""
 CardManager=""
+InputManager=""
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 

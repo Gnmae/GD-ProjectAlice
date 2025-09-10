@@ -7,3 +7,5 @@ extends Resource
 @export var damage : int
 @export var health : int
 @export var shield : int
+
+@export var text : String

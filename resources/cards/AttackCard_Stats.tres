@@ -9,4 +9,5 @@ cost = 1
 damage = 2
 health = 0
 shield = 0
+text = "Attack enemy for 2 Damage"
 metadata/_custom_type_script = "uid://b1ieak8remhb6"

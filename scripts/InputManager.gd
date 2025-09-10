@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 signal left_mouse_button_clicked
 signal left_mouse_button_released
@@ -9,39 +9,27 @@ const COLLISION_MASK_DECK : int = 4
 var card_manager_reference
 var deck_reference
 var focused : bool = false
+var mouse_in: bool = false
+
+var card_hovered = null
 
 func _ready() -> void:
 	card_manager_reference = $"../CardManager"
 	deck_reference = $"../Deck"
 
 func _input(event):
+	if card_manager_reference.focused == false:
+		return
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and focused:
-			focused = card_manager_reference.finish_drag()
-		elif event.pressed and !focused:
-			emit_signal("left_mouse_button_clicked")
-			raycast_at_cursor()
-		else:
-			emit_signal("left_mouse_button_released")
+		if event.pressed:
+			card_manager_reference.finish_drag()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		card_manager_reference.cancel_drag()
 
 func raycast_at_cursor():
-	print("racycasting at cursor")
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	var result = space_state.intersect_point(parameters)
+	var card_found = get_rect().has_point(get_global_mouse_position())
 	
-	if result.size() > 0:
-		var result_collision_mask = result[0].collider.collision_mask
-		if result_collision_mask == COLLISION_MASK_CARD:
-			# card clicked
-			var card_found = result[0].collider.get_parent()
-			if card_found:
-				card_found.drag_logic()
-				card_manager_reference.start_drag(card_found)
-				focused = true
-		elif result_collision_mask == COLLISION_MASK_DECK:
-			pass
-			# deck clicked
-			#deck_reference.draw_card()
+	#if card_found:
+		#return card_found
+	return null

@@ -11,3 +11,17 @@ func play_card(card):
 
 func get_group():
 	return unit_reference.get_groups()[0]
+
+func show_selector():
+	$CardSlotImage.visible = true
+
+func hide_selector():
+	$CardSlotImage.visible = false
+
+
+func _on_area_2d_mouse_entered() -> void:
+	$CardSlotImage.visible = true
+
+
+func _on_area_2d_mouse_exited() -> void:
+	$CardSlotImage.visible = false

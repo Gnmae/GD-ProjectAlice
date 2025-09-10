@@ -29,12 +29,12 @@ material = SubResource("StandardMaterial3D_eoko0")
 size = Vector2(300, 100)
 
 [sub_resource type="Curve" id="Curve_4h8li"]
-_data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 3.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_l8do3"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), -6.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w2ad"]

@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const CARD_WIDTH := 210
 const HAND_Y_POSITION := 900
@@ -30,14 +30,20 @@ func _ready() -> void:
 		#new_card.name = "Card"
 		#add_card_to_hand(new_card)
 
-func add_card_to_hand(card, speed):
+func add_card_to_hand(card, speed, index):
 	if card not in player_hand:
-		player_hand.insert(0, card)
+		player_hand.insert(index, card)
+		card.reparent(self)
 		update_hand_positions(speed)
 	else:
 		animate_card_to_position(card, card.hand_position, DEFAULT_CARD_MOVE_SPEED)
-		update_hand_positions(speed)
+		#update_hand_positions(speed)
 
+func find_index(card):
+	for i in player_hand.size():
+		if player_hand[i] == card:
+			return i
+	return 0
 
 func discard_card_from_hand(card):
 	discard_pile_reference.add_to_pile(card.card_name)
@@ -65,6 +71,12 @@ func update_hand_positions(speed):
 		
 		var y_multiplier := hand_curve.sample(1.0 / (card_count - 1) * i)
 		var rot_multiplier := rotation_curve.sample(1.0 / (card_count - 1) * i)
+		
+		if i != player_hand.size()/2:
+			if i < player_hand.size()/2:
+				rot_multiplier-=0.5
+			else:
+				rot_multiplier +=0.5
 		
 		if card_count == 1:
 			y_multiplier = 0.0
@@ -99,7 +111,8 @@ func animate_card_to_position(card, new_position, speed):
 func remove_card_from_hand(card):
 	if card in player_hand:
 		player_hand.erase(card)
-		self.remove_child(card)
+		var card_manager = get_tree().get_first_node_in_group("CardManager")
+		card.reparent(card_manager)
 		update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
 
 

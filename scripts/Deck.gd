@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const CARD_SCENE_PATH := "res://scenes/card.tscn"
 const CARD_DRAW_SPEED := 0.2
@@ -40,9 +40,9 @@ func draw_card():
 	var card_resource_path = str("res://resources/cards/" + card_drawn_values + "Card_Stats.tres")
 	new_card.stats = load(card_resource_path)
 	
-	new_card.get_node("CardImage/Attack").text = str(new_card.stats.damage)
 	new_card.get_node("CardImage/Cost").text = str(new_card.stats.cost)
 	new_card.cost = new_card.stats.cost
+	new_card.get_node("CardImage/Text").text = new_card.stats.text
 	
 	var pos = new_card.global_position
 	$"../PlayerHand".add_child(new_card)
@@ -51,7 +51,7 @@ func draw_card():
 	new_card.card_name = card_drawn_values #name used for card database reference
 	new_card.targeting = new_card.stats.targeting
 	new_card.global_position = pos
-	$"../PlayerHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+	$"../PlayerHand".add_card_to_hand(new_card, CARD_DRAW_SPEED, 0)
 
 func turn_end() -> void:
 	if player_deck.size() >= 0:
