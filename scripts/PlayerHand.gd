@@ -30,6 +30,10 @@ func _ready() -> void:
 		#new_card.name = "Card"
 		#add_card_to_hand(new_card)
 
+func clear_hand():
+	for i in player_hand.duplicate():
+		self.discard_card_from_hand(i)
+
 func add_card_to_hand(card, speed, index):
 	if card not in player_hand:
 		player_hand.insert(index, card)
@@ -85,7 +89,7 @@ func update_hand_positions(speed):
 		var final_x: float = offset + Card.SIZE.x * i + final_x_sep * i
 		var final_y: float = y_min + y_max * y_multiplier
 		
-		var new_position = Vector2(final_x, final_y)
+		var new_position = Vector2(final_x + self.global_position.x, final_y + self.global_position.y)
 		card.hand_position = new_position
 		card.rotation_degrees = max_rotation_degrees * rot_multiplier
 		animate_card_to_position(card, new_position, speed)
@@ -105,7 +109,7 @@ func calculate_card_position(index):
 
 func animate_card_to_position(card, new_position, speed):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", new_position, speed)
+	tween.tween_property(card, "global_position", new_position, speed)
 	await tween.finished
 
 func remove_card_from_hand(card):
@@ -114,7 +118,6 @@ func remove_card_from_hand(card):
 		var card_manager = get_tree().get_first_node_in_group("CardManager")
 		card.reparent(card_manager)
 		update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
-
 
 func turn_end() -> void:
 	for i in player_hand.duplicate():

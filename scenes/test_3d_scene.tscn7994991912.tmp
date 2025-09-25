@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://c51urya2pj1nm"]
+[gd_scene load_steps=18 format=3 uid="uid://c51urya2pj1nm"]
 
-[ext_resource type="Texture2D" uid="uid://wmoxhj6tflln" path="res://assets/example-bg.png" id="1_3lpxr"]
+[ext_resource type="PackedScene" uid="uid://c1i1e6840awl2" path="res://scenes/wireframe_background.tscn" id="1_3lpxr"]
 [ext_resource type="PackedScene" uid="uid://cwhfbot0mesiy" path="res://scenes/player.tscn" id="1_5k1rx"]
+[ext_resource type="Script" uid="uid://cmd7w88278ctx" path="res://scripts/GameManager.gd" id="1_eoko0"]
 [ext_resource type="Script" uid="uid://bfckmh7pa0t47" path="res://scripts/CameraManager.gd" id="1_swg6j"]
 [ext_resource type="PackedScene" uid="uid://dccda0tjgh6bh" path="res://scenes/test_dummy.tscn" id="2_swg6j"]
 [ext_resource type="Script" uid="uid://bqogf1rn4mwsg" path="res://scripts/CardManager.gd" id="3_3lpxr"]
@@ -13,20 +14,6 @@
 [ext_resource type="Script" uid="uid://dfdr28w7bdfub" path="res://scripts/InputManager.gd" id="9_mioed"]
 [ext_resource type="Script" uid="uid://b867abe1g53mj" path="res://scripts/EnemyManager.gd" id="10_236cj"]
 [ext_resource type="Script" uid="uid://drrvayi838ypx" path="res://scripts/TurnManager.gd" id="11_ytbul"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lpxr"]
-albedo_texture = ExtResource("1_3lpxr")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_muyy3"]
-material = SubResource("StandardMaterial3D_3lpxr")
-size = Vector2(300, 100)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eoko0"]
-albedo_texture = ExtResource("1_3lpxr")
-
-[sub_resource type="QuadMesh" id="QuadMesh_swg6j"]
-material = SubResource("StandardMaterial3D_eoko0")
-size = Vector2(300, 100)
 
 [sub_resource type="Curve" id="Curve_4h8li"]
 _data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
@@ -40,15 +27,10 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w2ad"]
 size = Vector2(180, 266)
 
-[node name="Test_3D_Scene" type="Node3D"]
-transform = Transform3D(0.999976, 0.00663055, -0.00217486, -0.00663416, 0.999977, -0.0016545, 0.00216383, 0.0016689, 0.999996, 0, 0, 0)
+[node name="GameManager" type="Node"]
+script = ExtResource("1_eoko0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_muyy3")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -50)
-mesh = SubResource("QuadMesh_swg6j")
+[node name="Wireframe_Background" parent="." instance=ExtResource("1_3lpxr")]
 
 [node name="CameraManager" type="Node" parent="."]
 script = ExtResource("1_swg6j")
@@ -204,6 +186,7 @@ directional_shadow_mode = 0
 sky_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="DirectionalLight3D"]
+current = true
 
 [connection signal="drag_finished" from="Control/CanvasLayer/CardManager" to="CameraManager" method="_on_card_manager_drag_finished"]
 [connection signal="drag_finished" from="Control/CanvasLayer/CardManager" to="Control/CanvasLayer/TurnManager" method="_on_card_manager_drag_finished"]

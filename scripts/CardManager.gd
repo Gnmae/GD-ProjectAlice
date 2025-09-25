@@ -17,7 +17,7 @@ var index : int = 0
 
 var player_hand_reference
 var discard_pile_reference
-var energy_reference
+@onready var player_stats : PlayerStats = preload("res://resources/player_stats.tres")
 
 
 
@@ -25,7 +25,9 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	player_hand_reference = $"../PlayerHand"
 	discard_pile_reference = $"../DiscardPile"
-	energy_reference = $"../Energy"
+	
+	var camera_manager = get_tree().get_first_node_in_group("CameraManager")
+	camera_manager.connect_signals(self)
 	#$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 func on_card_pressed(card, input):
@@ -33,8 +35,6 @@ func on_card_pressed(card, input):
 		"lmb":
 			if !focused:
 				start_drag(card)
-
-
 
 func start_drag(card):
 	focused = true
@@ -54,38 +54,32 @@ func finish_drag():
 	
 	match card_being_dragged.targeting:
 		"Enemy":
-			if card_slot_found != null and card_slot_found.get_group() == "Enemy" and card_being_dragged.cost <= energy_reference.get_energy():
-				#player_hand_reference.remove_card_from_hand(card_being_dragged)
-				card_being_dragged.position = card_slot_found.global_position
+			if card_slot_found != null and card_slot_found.get_group() == "Enemy" and card_being_dragged.cost <= player_stats.energy:
 				card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 				card_slot_found.play_card(card_being_dragged)
 				discard_pile_reference.add_to_pile(card_being_dragged.card_name)
-				energy_reference.decr_energy(card_being_dragged.cost)
+				player_stats.decr_energy(card_being_dragged.cost)
 				card_being_dragged.queue_free()
 			else:
 				card_being_dragged.end_focus()
 				player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED, index)
 		"Enemy_All":
-			if card_being_dragged.cost <= energy_reference.get_energy():
+			if card_being_dragged.cost <= player_stats.energy:
 				var enemies = get_tree().get_nodes_in_group("Enemy")
-				#player_hand_reference.remove_card_from_hand(card_being_dragged)
 				for i in enemies:
 					i.get_node("CardSlot").play_card(card_being_dragged)
 				discard_pile_reference.add_to_pile(card_being_dragged.card_name)
-				energy_reference.decr_energy(card_being_dragged.cost)
-				#player_hand_reference.update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
+				player_stats.decr_energy(card_being_dragged.cost)
 				card_being_dragged.queue_free()
 			else:
 				card_being_dragged.end_focus()
 				player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED, index)
 		"Friendly":
-			if card_slot_found != null and card_slot_found.get_group() == "Friendly" and card_being_dragged.cost <= energy_reference.get_energy():
-				#player_hand_reference.remove_card_from_hand(card_being_dragged)
-				card_being_dragged.position = card_slot_found.global_position
+			if card_slot_found != null and card_slot_found.get_group() == "Friendly" and card_being_dragged.cost <= player_stats.energy:
 				card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 				card_slot_found.play_card(card_being_dragged)
 				discard_pile_reference.add_to_pile(card_being_dragged.card_name)
-				energy_reference.decr_energy(card_being_dragged.cost)
+				player_stats.decr_energy(card_being_dragged.cost)
 				card_being_dragged.queue_free()
 			else:
 				card_being_dragged.end_focus()
@@ -105,14 +99,14 @@ func finish_drag():
 func cancel_drag():
 	emit_signal("drag_finished")
 	if !card_being_dragged:
-		print("Error card_being_dragged = null in card_manager")
+		print("Error card_being_dragged = null in card_manager : cancel_drag")
 		return false
 	card_being_dragged.end_focus()
 	player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED, index)
 	focused = false
 	return false
 
-func connect_card_signals(card):
+func connect_card_signals(_card):
 	pass
 	#card.connect("hovered", on_hovered_over_card)
 	#card.connect("hovered_off", on_hovered_off_card)

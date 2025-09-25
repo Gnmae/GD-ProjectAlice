@@ -4,17 +4,17 @@ const CARD_SCENE_PATH := "res://scenes/card.tscn"
 const CARD_DRAW_SPEED := 0.2
 
 
-var player_deck := ["Screech", "Heal", "Shockwave", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack"]
-var card_database_reference
+var player_deck
+
 var discard_pile_reference
 var player_hand_reference
 
-func _ready() -> void:
+func initialize(deck) -> void:
+	player_deck = deck.duplicate()
 	player_hand_reference = $"../PlayerHand"
 	discard_pile_reference = $"../DiscardPile"
 	player_deck.shuffle()
 	$RichTextLabel.text = str(player_deck.size())
-	card_database_reference = preload("res://scripts/CardDatabase.gd")
 
 func draw_card():
 	

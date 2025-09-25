@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://5540thk82y58" path="res://scripts/Player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://djbnt11asl8tk" path="res://scenes/CardSlot.tscn" id="3_qhqgy"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" groups=["Friendly"]]
 script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,7 +15,7 @@ texture = ExtResource("1_3vyb7")
 modulate = Color(0, 0, 0, 1)
 offset_left = -105.0
 offset_top = 109.0
-offset_right = -16.0
+offset_right = 112.0
 offset_bottom = 182.0
 theme_override_font_sizes/normal_font_size = 50
 text = "0"

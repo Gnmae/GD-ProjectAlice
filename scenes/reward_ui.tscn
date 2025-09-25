@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=3 uid="uid://bggqh1cna0es6"]
+
+[ext_resource type="Texture2D" uid="uid://bd5wcejldb6js" path="res://assets/reward_backdrop.png" id="1_0y2xm"]
+[ext_resource type="Script" uid="uid://c67x4qmb3vspm" path="res://scripts/reward_ui.gd" id="1_daitn"]
+[ext_resource type="Theme" uid="uid://c7pohpxf4ydcn" path="res://scenes/default_theme.tres" id="2_c8pga"]
+[ext_resource type="Texture2D" uid="uid://cm8utvsgpxnr3" path="res://assets/next_button.png" id="4_0ok70"]
+
+[node name="Reward_UI" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_daitn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_0y2xm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_c8pga")
+theme_override_font_sizes/font_size = 50
+text = "Rewards"
+horizontal_alignment = 1
+
+[node name="RewardContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="BoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSeparator2" type="BoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VSeparator" type="BoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+
+[node name="NextButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("4_0ok70")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer/NextButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_c8pga")
+theme_override_font_sizes/font_size = 100
+text = "Next"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator2" type="BoxContainer" parent="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]

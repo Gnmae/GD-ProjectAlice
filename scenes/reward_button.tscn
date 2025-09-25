@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccppdog4lp1cy"]
+
+[ext_resource type="Texture2D" uid="uid://ddn0u5epsblv3" path="res://assets/placeholder_button_texture.png" id="1_6dl52"]
+[ext_resource type="Script" uid="uid://ckrn1xwa62sh1" path="res://scripts/reward_button.gd" id="2_6eb35"]
+[ext_resource type="Theme" uid="uid://c7pohpxf4ydcn" path="res://scenes/default_theme.tres" id="2_wp60y"]
+
+[node name="Reward_Button" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_6dl52")
+script = ExtResource("2_6eb35")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_wp60y")
+text = "default_text"
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

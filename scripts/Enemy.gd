@@ -12,5 +12,7 @@ func apply_effect(cardstats : CardStats):
 	health += cardstats.health
 	health -= cardstats.damage
 	if health <= 0:
+		var enemy_manager = get_tree().get_first_node_in_group("EnemyManager")
+		enemy_manager.check_enemies()
 		queue_free()
 	$Health.text = str(health)

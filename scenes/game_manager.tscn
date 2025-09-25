@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://davoawje44ev8"]
+
+[ext_resource type="Script" uid="uid://cmd7w88278ctx" path="res://scripts/GameManager.gd" id="1_hwd4i"]
+[ext_resource type="PackedScene" uid="uid://dudtsrt243ch5" path="res://scenes/main_menu.tscn" id="2_glms7"]
+[ext_resource type="Script" uid="uid://b3ajwi1r27kqd" path="res://scripts/game_controller.gd" id="2_q8mjp"]
+[ext_resource type="Script" uid="uid://bfckmh7pa0t47" path="res://scripts/CameraManager.gd" id="2_udu3i"]
+[ext_resource type="Script" uid="uid://dv5bqob26w4c4" path="res://scripts/unit_manager.gd" id="3_oo155"]
+[ext_resource type="Script" uid="uid://djx2wye7sbhuu" path="res://scripts/encounter_manager.gd" id="4_eaq8r"]
+[ext_resource type="Script" uid="uid://bp5nngnr5a1i2" path="res://scripts/reward_manager.gd" id="5_k4jhu"]
+[ext_resource type="Script" uid="uid://b867abe1g53mj" path="res://scripts/EnemyManager.gd" id="5_ternb"]
+[ext_resource type="PackedScene" uid="uid://bw28v3pu7rp28" path="res://scenes/player_controller.tscn" id="7_jdad8"]
+[ext_resource type="PackedScene" uid="uid://eob3r7g7ahts" path="res://scenes/player_ui.tscn" id="9_frtjd"]
+
+[node name="GameManager" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "gui")]
+script = ExtResource("1_hwd4i")
+world_3d = NodePath("World3D")
+world_2d = NodePath("World2D")
+gui = NodePath("GUI")
+
+[node name="GameController" type="Node" parent="." groups=["GameController"]]
+script = ExtResource("2_q8mjp")
+
+[node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("camera2D", "camera3D") groups=["CameraManager"]]
+script = ExtResource("2_udu3i")
+camera2D = NodePath("../World2D/Camera2D")
+camera3D = NodePath("../World3D/DirectionalLight3D/Camera3D")
+
+[node name="UnitManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_oo155")
+
+[node name="RewardManager" type="Node" parent="."]
+script = ExtResource("5_k4jhu")
+
+[node name="EncounterManager" type="Node" parent="." groups=["EncounterManager"]]
+script = ExtResource("4_eaq8r")
+
+[node name="EnemyManager" type="Node" parent="." groups=["EnemyManager"]]
+unique_name_in_owner = true
+script = ExtResource("5_ternb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="PlayerUI" parent="CanvasLayer" groups=["PlayerUI"] instance=ExtResource("9_frtjd")]
+visible = false
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, 0, 10, 40)
+directional_shadow_mode = 0
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="World3D/DirectionalLight3D"]
+current = true
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="World2D"]
+position = Vector2(960, 540)
+position_smoothing_enabled = true
+
+[node name="PlayerController" parent="World2D" instance=ExtResource("7_jdad8")]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 1
+
+[node name="MainMenu" parent="GUI" instance=ExtResource("2_glms7")]
+layout_mode = 1

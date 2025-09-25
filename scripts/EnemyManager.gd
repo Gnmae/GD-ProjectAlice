@@ -1,16 +1,21 @@
-extends Node2D
+extends Node
 
 const CARD_DATABASE_REFERENCE = "res://resources/cards/"
 
 var enemy_actions = []
+var enemy_count
 var player_reference
 
-func _ready() -> void:
-	
+func initialize() -> void:
 	player_reference = get_tree().get_first_node_in_group("Friendly")
+	self.decide_enemy_actions()
+
+func connect_turn_manager(turn_manager):
+	turn_manager.connect("turn_end", _on_turn_manager_turn_end)
 
 func decide_enemy_actions():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
+	enemy_count = enemies.size()
 	for i in enemies:
 		#choose actions randomly from array
 		var index := randi_range(0, i.actions.size()-1)
@@ -32,3 +37,8 @@ func update_symbols(enemy_reference, action):
 
 func _on_turn_manager_turn_end() -> void:
 	self.perform_enemy_actions()
+
+func check_enemies():
+	enemy_count -= 1
+	if enemy_count < 1:
+		$"../GameController".encounter_finished()

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1i1e6840awl2"]
+
+[ext_resource type="Texture2D" uid="uid://wmoxhj6tflln" path="res://assets/example-bg.png" id="1_fcef1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lpxr"]
+albedo_texture = ExtResource("1_fcef1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e5l3p"]
+material = SubResource("StandardMaterial3D_3lpxr")
+size = Vector2(300, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eoko0"]
+albedo_texture = ExtResource("1_fcef1")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0psr8"]
+material = SubResource("StandardMaterial3D_eoko0")
+size = Vector2(300, 100)
+
+[node name="Wireframe_Background" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_e5l3p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -50)
+mesh = SubResource("QuadMesh_0psr8")

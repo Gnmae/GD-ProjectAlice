@@ -6,7 +6,7 @@
 script = ExtResource("1_0e7vt")
 targeting = "Enemy"
 cost = 1
-damage = 2
+damage = 10
 health = 0
 shield = 0
 text = "Attack enemy for 2 Damage"

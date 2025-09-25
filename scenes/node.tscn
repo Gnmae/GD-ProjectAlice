@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnma4ppjtqsco"]
+
+[ext_resource type="Texture2D" uid="uid://c83ig45y0nayn" path="res://assets/node_placeholder.png" id="1_dondh"]
+[ext_resource type="Texture2D" uid="uid://wmqtdlstqtca" path="res://assets/node_placeholder_pressed.png" id="2_76phl"]
+[ext_resource type="Script" uid="uid://b5ymsvmj7sjyy" path="res://scripts/node.gd" id="3_76phl"]
+[ext_resource type="Theme" uid="uid://c7pohpxf4ydcn" path="res://scenes/default_theme.tres" id="3_qhfa5"]
+
+[node name="Node" type="TextureButton"]
+offset_right = 300.0
+offset_bottom = 300.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("1_dondh")
+texture_pressed = ExtResource("2_76phl")
+script = ExtResource("3_76phl")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.1667
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_qhfa5")
+text = "DefaultNodeText"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

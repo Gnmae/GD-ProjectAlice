@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://c5qqtafygg1rx"]
+
+[ext_resource type="Script" uid="uid://c4fojrn6e4i25" path="res://resources/Player_Stats.gd" id="1_wld0n"]
+
+[resource]
+script = ExtResource("1_wld0n")
+max_health = 80
+health = 80
+max_energy = 3
+energy = 3
+deck = Array[String](["Attack", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack", "Attack"])
+currency = 0
+metadata/_custom_type_script = "uid://c4fojrn6e4i25"

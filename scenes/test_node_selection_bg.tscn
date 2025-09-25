@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6snd73jye8tt"]
+
+[ext_resource type="Texture2D" uid="uid://8105scnjx8fy" path="res://assets/background.png" id="1_6guo2"]
+
+[node name="TestNodeSelectionBG" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0, 0.741524, 0.430052, 1)
+texture_repeat = 2
+position = Vector2(672, 334.5)
+scale = Vector2(11.94, 5.1475)
+texture = ExtResource("1_6guo2")

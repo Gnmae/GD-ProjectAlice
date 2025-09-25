@@ -1,0 +1,155 @@
+[gd_scene load_steps=13 format=3 uid="uid://bw28v3pu7rp28"]
+
+[ext_resource type="Script" uid="uid://bqogf1rn4mwsg" path="res://scripts/CardManager.gd" id="1_ba4vk"]
+[ext_resource type="Script" uid="uid://djt6r3ujp8rtk" path="res://scripts/player_controller.gd" id="1_ga2kn"]
+[ext_resource type="Script" uid="uid://sa8galc2f5hd" path="res://scripts/PlayerHand.gd" id="2_ga2kn"]
+[ext_resource type="Script" uid="uid://dhf40xl8yoleq" path="res://scripts/Deck.gd" id="3_lwvb4"]
+[ext_resource type="Texture2D" uid="uid://bhf0snh858kk1" path="res://assets/Deck.png" id="4_mfmwq"]
+[ext_resource type="Script" uid="uid://duljsncr5xd22" path="res://scripts/Energy.gd" id="5_1kmjt"]
+[ext_resource type="Script" uid="uid://u6ufg6bw64ip" path="res://scripts/DiscardPile.gd" id="6_bqnof"]
+[ext_resource type="Script" uid="uid://dfdr28w7bdfub" path="res://scripts/InputManager.gd" id="7_iu0n4"]
+[ext_resource type="Script" uid="uid://drrvayi838ypx" path="res://scripts/TurnManager.gd" id="8_ngi1a"]
+
+[sub_resource type="Curve" id="Curve_nj5ok"]
+_data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ki31a"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsuos"]
+size = Vector2(180, 266)
+
+[node name="PlayerController" type="Node2D" groups=["PlayerController"]]
+script = ExtResource("1_ga2kn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CardManager" type="Control" parent="CanvasLayer" groups=["CardManager"]]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_ba4vk")
+
+[node name="PlayerHand" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 314.0
+offset_top = 890.0
+offset_right = 314.0
+offset_bottom = 890.0
+mouse_filter = 1
+script = ExtResource("2_ga2kn")
+hand_curve = SubResource("Curve_nj5ok")
+rotation_curve = SubResource("Curve_ki31a")
+
+[node name="Deck" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 890.0
+offset_right = 150.0
+offset_bottom = 890.0
+mouse_filter = 1
+script = ExtResource("3_lwvb4")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Deck"]
+texture = ExtResource("4_mfmwq")
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer/Deck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Deck/Area2D"]
+shape = SubResource("RectangleShape2D_hsuos")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Deck"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -35.5
+offset_right = 30.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Energy" type="Node2D" parent="CanvasLayer"]
+position = Vector2(138, 694)
+script = ExtResource("5_1kmjt")
+
+[node name="EnergyText" type="RichTextLabel" parent="CanvasLayer/Energy"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+theme_override_colors/default_color = Color(0.133333, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 50
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiscardPile" type="Node2D" parent="CanvasLayer"]
+position = Vector2(1781, 890)
+script = ExtResource("6_bqnof")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/DiscardPile"]
+texture = ExtResource("4_mfmwq")
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer/DiscardPile"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/DiscardPile/Area2D"]
+shape = SubResource("RectangleShape2D_hsuos")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/DiscardPile"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -35.5
+offset_right = 30.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputManager" type="Control" parent="CanvasLayer" groups=["InputManager"]]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("7_iu0n4")
+
+[node name="TurnManager" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("8_ngi1a")
+
+[node name="EndTurnButton" type="Button" parent="CanvasLayer"]
+offset_left = 1641.0
+offset_top = 536.0
+offset_right = 1899.0
+offset_bottom = 638.0
+theme_override_font_sizes/font_size = 40
+text = "End Turn
+"
+
+[connection signal="drag_finished" from="CanvasLayer/CardManager" to="CanvasLayer/TurnManager" method="_on_card_manager_drag_finished"]
+[connection signal="drag_started" from="CanvasLayer/CardManager" to="CanvasLayer/TurnManager" method="_on_card_manager_drag_started"]
+[connection signal="turn_end" from="CanvasLayer/TurnManager" to="CanvasLayer/Energy" method="_on_turn_manager_turn_end"]
+[connection signal="pressed" from="CanvasLayer/EndTurnButton" to="CanvasLayer/TurnManager" method="_on_end_turn_button_pressed"]

@@ -23,7 +23,7 @@ func _on_resolutions_item_selected(index: int) -> void:
 	DisplayServer.window_set_position(Vector2i(center_x, center_y))
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	Global.game_manager.change_gui_scene("res://scenes/main_menu.tscn")
 
 
 func _on_fullscreen_check_box_toggled(toggled_on: bool) -> void:

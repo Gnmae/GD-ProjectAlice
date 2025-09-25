@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://4xwhsuw7fglj" path="res://scenes/AttackSymbol.tscn" id="4_0btni"]
 
 [node name="test_dummy" type="Node2D" groups=["Enemy"]]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_gionw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

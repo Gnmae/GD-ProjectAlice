@@ -11,12 +11,13 @@ signal turn_end
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	deck_reference = $"../Deck"
-	enemy_manager_reference = $"../EnemyManager"
+	enemy_manager_reference = get_tree().get_first_node_in_group("EnemyManager")
+	enemy_manager_reference.connect_turn_manager(self)
 	player_hand_reference = $"../PlayerHand"
 	end_turn_button_reference = $"../EndTurnButton"
-	enemy_manager_reference.decide_enemy_actions()
-	
-	await get_tree().create_timer(0.2).timeout
+	#enemy_manager_reference.decide_enemy_actions()
+
+func initialize():
 	for i in range(0,5):
 		deck_reference.draw_card()
 
@@ -29,5 +30,5 @@ func _on_end_turn_button_pressed() -> void:
 func _on_card_manager_drag_finished() -> void:
 	end_turn_button_reference.disabled = false
 
-func _on_card_manager_drag_started(card) -> void:
+func _on_card_manager_drag_started(_card) -> void:
 	end_turn_button_reference.disabled = true

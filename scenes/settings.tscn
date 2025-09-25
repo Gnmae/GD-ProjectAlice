@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://by7tmam2nnt8b" path="res://scripts/settings.gd" id="1_5p8wc"]
 
 [node name="Settings" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

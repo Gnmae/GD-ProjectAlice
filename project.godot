@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="Alice In Wonderland"
-run/main_scene="uid://dudtsrt243ch5"
+run/main_scene="uid://davoawje44ev8"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-MouseBrain="*res://scripts/MouseBrain.gd"
+MouseBrain="res://scripts/MouseBrain.gd"
+Global="*res://scripts/globals/global.gd"
 
 [dialogic]
 
@@ -72,10 +73,16 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 [global_group]
 
-Enemy=""
-Friendly=""
 CardManager=""
 InputManager=""
+CameraManager=""
+EncounterManager=""
+Enemy=""
+Friendly=""
+EnemyManager=""
+GameController=""
+PlayerController=""
+PlayerUI=""
 
 [gui]
 

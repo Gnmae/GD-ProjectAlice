@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnvtg3c0o3edh"]
+
+[ext_resource type="Script" uid="uid://de63ijr2fd7ox" path="res://scripts/node_selection_scene.gd" id="1_y5qr6"]
+[ext_resource type="Theme" uid="uid://c7pohpxf4ydcn" path="res://scenes/default_theme.tres" id="2_7q00x"]
+
+[node name="NodeSelectionScene" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_y5qr6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -499.0
+offset_top = -248.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_7q00x")
+theme_override_font_sizes/font_size = 100
+text = "Confirm"
+icon_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
